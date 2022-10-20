@@ -25,12 +25,63 @@ namespace Health_System
             lives = 003;
 
             ShowHUD();
-            TakeDamage(100); //range checking
+            Console.ReadKey(true);
+            TakeDamage(80); //range checking
+            Console.ReadKey(true);
             ShowHUD();
-            TakeDamage(10);
+            Console.ReadKey(true);
+            TakeDamage(-15);
+            Console.ReadKey(true);
             ShowHUD();
-            Heal(-20);
+            Console.ReadKey(true);
+            Heal(75);
+            Console.ReadKey(true);
             ShowHUD();
+            Console.ReadKey(true);
+            Heal(-17);
+            Console.ReadKey(true);
+            ShowHUD();
+            Console.ReadKey(true);
+            RegenerateShield(120);
+            Console.ReadKey(true);
+            ShowHUD();
+            Console.ReadKey(true);
+            RegenerateShield(-79);
+            Console.ReadKey(true);
+            ShowHUD();
+            Console.ReadKey(true);
+            TakeDamage(120);
+            Console.ReadKey(true);
+            ShowHUD();
+            Console.ReadKey(true);
+            TakeDamage(30);
+            Console.ReadKey(true);
+            ShowHUD();
+            Console.ReadKey(true);
+            TakeDamage(15);
+            Console.ReadKey(true);
+            ShowHUD();
+            Console.ReadKey(true);
+            TakeDamage(35);
+            Console.ReadKey(true);
+            ShowHUD();
+            Console.ReadKey(true);
+            Reset();
+            Console.ReadKey(true);
+            ShowHUD();
+            Console.ReadKey(true);
+            TakeDamage(200);
+            Console.ReadKey(true);
+            ShowHUD();
+            Console.ReadKey(true);
+            Reset();
+            Console.ReadKey(true);
+            ShowHUD();
+            Console.ReadKey(true);
+            TakeDamage(200);
+            Console.ReadKey(true);
+            ShowHUD();
+
 
 
             Console.ReadKey(true);
@@ -38,6 +89,7 @@ namespace Health_System
         static void Heal(int hp)
         {
             health = health + hp;
+            Console.WriteLine();
             Console.WriteLine("Player has healed by: " + hp + " points...");
 
             if (hp > 100)
@@ -65,6 +117,7 @@ namespace Health_System
         static void RegenerateShield(int regen)
         {
             shield = shield + regen;
+            Console.WriteLine();
             Console.WriteLine("Player has picked up a shield: " + regen + " points regenerated...");
             if (regen > 100)
             {
@@ -89,8 +142,17 @@ namespace Health_System
         }
         static void TakeDamage(int damage) //damage only works w int
         {
+            Console.WriteLine();
             Console.WriteLine("Player is about to take " + damage + " damage..."); // debug: shows what line is playing
-            //shield = shield - damage;
+                                                                                   //shield = shield - damage;
+
+            if (damage < 0)
+            {
+                health = health;
+                shield = shield;
+                
+                Console.WriteLine("[ERROR: Negative Value]");
+            }
             if (shield == 100)
             {
                 health = health + shield - damage;
@@ -116,12 +178,7 @@ namespace Health_System
             {
                 health = 100;
             }
-            if (damage < 0)
-            {
-                shield = shield;
-                health = health;
-                Console.WriteLine("[ERROR: Negative Value]");
-            }
+
 
         }
 
@@ -132,22 +189,17 @@ namespace Health_System
             status = "";
             Console.WriteLine();
 
-            if (shield >= 75)
-            {
-                status = "Great";
-            }
-
-            if ((shield <= 50) && (shield >= 30))
+            if (health >= 75)
             {
                 status = "Good";
             }
 
-            if (health >= 75)
+            if (health == 50)
             {
                 status = "Fine";
             }
-
-            if ((health <= 50) && (health >= 30)) // && and operator
+            
+            if ((health <= 35) && (health >= 5)) // && and operator
             {
                 status = "HURT";
             }
@@ -163,10 +215,6 @@ namespace Health_System
             Console.WriteLine("Health status: " + status);
             Console.ResetColor();
 
-            if ((shield == 0) && (health == 0) && lives == 0)
-            {
-                Console.WriteLine("Game Over");
-            }
             Console.BackgroundColor = ConsoleColor.Blue ;
             Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine("Shield: " + shield);
@@ -179,11 +227,27 @@ namespace Health_System
             Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine("Lives: 00" + lives);
             Console.ResetColor();
+
+            if ((shield == 0) && (health == 0) && lives == 0)
+            {
+                Console.WriteLine();
+                Console.WriteLine("The Hero cannot be heard upon the macabre screams and pain, from the depths of The Underworld.... GAME OVER. ");
+                System.Media.SystemSounds.Hand.Play();
+                Console.WriteLine();
+            }
         }
 
         static void Reset()
         {
-            Console.WriteLine("RESET");
+            Console.WriteLine();
+            if (lives == 2)
+            {
+                Console.WriteLine("The Gods Have Bestowed Upon You Another Chance..." + " RESET");
+            }
+            if (lives == 1)
+            {
+                Console.WriteLine("The Gods Grow Impatient... The Harsh Underworld Awaits if Defeated Once Again." + " RESET");
+            }
             health = 100;
             shield = 100;
         }
